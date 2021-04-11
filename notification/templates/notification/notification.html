@@ -1,0 +1,63 @@
+{% extends 'home/nav_bar.html' %}
+{% load static %}
+
+{% block title %}
+<title>Transaction History</title>
+<link rel="stylesheet" href="{% static 'search_and_history/style.css' %}">
+<style>
+table{
+    margin-left:350px;
+}
+button:hover{
+    color:black;
+    background-color:white;
+}
+</style>
+{% endblock title %}
+
+
+{% block customer_content %}
+{% if status %}
+<h1> {{status}} </h1>
+{% else %}
+    <table>
+            <tr>
+                <td>Transaction with</td>
+                <td>Amount</td>
+                <td>Date</td>
+                <td>Time</td>
+                <td>Status</td>
+                <td>Accept</td>
+                <td>Reject</td>
+            </tr>
+
+        {% for data in noti_data %}
+
+            {% if data.request_receiver == email %}
+            <tr style="background-color: red; color: white;">
+                <td> {{data.request_sender}} </td>
+                <td> {{data.requested_amount}} </td>
+                <td> {{data.date}} </td>
+                <td> {{data.time}} </td>
+                <td> N.A </td>
+                <td> <button class="pay"> <a href="{% url 'accept' %}?id={{data.id}}"> Accept </a> </button> </td>
+                <td> <button class="request"> <a href="{% url 'reject' %}?id={{data.id}}"> Reject </a> </button> </td>
+            </tr>
+            {% else %}
+
+            <tr style="background-color: rgb(126, 230, 23); color: black;">
+                <td> {{data.request_receiver}} </td>
+                <td> {{data.requested_amount}} </td>
+                <td> {{data.date}} </td>
+                <td> {{data.time}} </td>
+                <td> {{data.status}} </td>
+                <td> N.A </td>
+                <td> N.A </td>
+            </tr>
+
+            {% endif %}
+
+        {% endfor %}
+    </table>
+{% endif %}
+{% endblock customer_content %}

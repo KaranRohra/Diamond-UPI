@@ -1,0 +1,25 @@
+{% extends 'home/nav_bar.html' %}
+{% load static %}
+
+{% block title %}
+<title>Request</title>
+<link rel="stylesheet" href="{% static 'pay_and_request/style.css' %}">
+
+{% endblock title %}
+
+{% block customer_content %}
+<div class="payment">
+    {% if status %}
+        <h3>{{status}}</h3>
+        <button> <a href="{% url 'home' %}">BACK</a> </button>
+    {% else %}
+        <h2>You are requesting from {{email}}</h2>
+        <form action="" method="POST">
+        {% csrf_token %}
+            <p>Enter amount: <input type="number" name="amount"></p>
+            <button type='submit'>Request</button> <br>
+        </form>
+    {% endif %}
+</div>
+
+{% endblock customer_content %}

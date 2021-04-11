@@ -1,0 +1,72 @@
+{% extends 'home/nav_bar.html' %}
+{% load static %}
+
+
+{% block title %}
+<title>     
+Search
+</title>  
+<link rel="stylesheet" href="{% static 'search_and_history/style.css' %}">
+<style>
+.head{
+    color: black;
+    background-color: white;
+    border-color: black;
+}
+table{
+    color: white;
+    border-color: black;
+    margin-left:330px;
+}
+th,td,tr{
+    border-color: black;
+} 
+button:hover{
+    color:black;
+    background-color:white;
+}
+</style>
+
+{% endblock title %}
+
+
+{% block customer_content %}
+<div class="searchbox">  
+    <form>   
+        <input type="text" placeholder=" Search...." name="email">   
+        <button type="submit">Search</button>   
+    </form>  
+</div>
+
+{% if cursor %}
+    <div class="search_data">
+        <table>
+            <tr class="head">
+                <td>Customer Email ID</td>
+                <td>Customer Name</td>
+                <td>Pay</td>
+                <td>Request</td>
+            </tr>
+      
+        {% for customer in cursor %}
+        <tr>
+            <td> {{customer.0}} </td>
+            <td> {{customer.2}} </td>
+
+            {% if customer.0 != email %}
+                <td> <button class="pay"> <a href="{% url 'pay'%}?email={{customer.0}}"> Pay </a> </button> </td>
+                <td> <button class="request"> <a href="{% url 'requested' %}?email={{customer.0}}"> Request </a> </button> </td>
+            {% else %}
+            <td>N.A</td>
+            <td>N.A</td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+        </table>
+    </div>
+        
+{% elif status|default:False %}
+<h2>Customer not found !!!</h2>
+{% endif %}
+
+{% endblock customer_content %}  

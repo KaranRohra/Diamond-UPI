@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+ {% block title %}{% endblock title %}
+
+  <link rel="stylesheet" href="{% static 'home/style.css' %}">
+</head>
+
+<body>
+
+  <ul>
+    <li><a href="{% url 'home' %}">Home</a></li>
+    <li><a href="{% url 'search' %}">Search</a></li>
+    <li><a href="{% url 'history' %}">Transaction History</a></li>
+    <li><a href="{% url 'notification' %}">Notifications</a></li>
+    <li><a href="#news">Profile</a></li>
+    <li><a href="{% url 'logout' %}">Logout</a></li>
+    <li style="float:right"><a class="active" href="{% url 'home' %}">Diamond UPI</a></li>
+  </ul>
+
+  {% block customer_content %}
+
+  {% endblock customer_content %}
+</body>
+</html>

@@ -1,0 +1,32 @@
+.payment{
+    text-align: center;
+}
+button{
+    margin-top: 30px;
+    font-size: 20px;
+    width: 100px;
+    height: 30px;
+    background-color: rgb(255, 237, 77);
+    color: blue;
+    border-radius: 10px;
+}
+button:hover{
+    color: darkblue;
+    background-color: lawngreen;
+}
+form{
+    color: white;
+}
+input{
+    font-size: 15px;
+}
+p{
+    font-size: 20px;
+}
+input{
+    height: 20px;
+    width: 200px;
+}
+h1, h2, h3{
+    color: white;
+}

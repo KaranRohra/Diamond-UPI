@@ -1,0 +1,54 @@
+{% extends 'home/nav_bar.html' %}
+{% load static %}
+
+{% block title %}
+<title>Transaction History</title>
+<link rel="stylesheet" href="{% static 'search_and_history/style.css' %}">
+<style>
+table{
+     margin-left:350px;
+}
+</style>
+{% endblock title %}
+
+
+{% block customer_content %}
+{% if status %}
+<h1> {{status}} </h1>
+{% else %}
+    <table>
+        <head>
+            <tr>
+                <td>Transaction with</td>
+                <td>Status</td>
+                <td>Amount</td>
+                <td>Date</td>
+                <td>Time</td>
+            </tr>
+        </head>
+
+        {% for transaction in history %}
+
+            {% if transaction.6 == 'debited' %}
+                <tr style="background-color: red; color: white;">
+                    <td> {{transaction.3}} </td>
+                    <td> {{transaction.6}} </td>
+                    <td> {{transaction.2}} </td>
+                    <td> {{transaction.4}} </td>
+                    <td> {{transaction.5}} </td>
+                    
+                </tr>
+            {% else %}
+                <tr style="background-color: rgb(126, 230, 23); color:black;">
+                    <td> {{transaction.3}} </td>
+                    <td> {{transaction.6}} </td>
+                    <td> {{transaction.2}} </td>
+                    <td> {{transaction.4}} </td>
+                    <td> {{transaction.5}} </td>
+                    
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+{% endif %}
+{% endblock customer_content %}
