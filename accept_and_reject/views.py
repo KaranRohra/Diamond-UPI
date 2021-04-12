@@ -52,7 +52,19 @@ def accept(request):
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def reject(request):
-    return render(request, 'template_name')
+    if 'email' not in request.COOKIES:
+        return redirect('login')
+    if 'id' not in request.GET:
+        redirect('search')
+    
+    id_ = int(request.GET['id'])
+    rejected_request = Requests.objects.get(id=id_)
+
+    rejected_request.status = 'rejected'
+
+    rejected_request.save()
+
+    return redirect('notification')
 
 
 def save_payment_detail(option, amount, email, pay_id):

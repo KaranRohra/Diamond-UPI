@@ -2,11 +2,15 @@
 {% load static %}
 
 {% block title %}
-<title>Transaction History</title>
+<title>Notification</title>
 <link rel="stylesheet" href="{% static 'search_and_history/style.css' %}">
+<script src="{% static 'notification/main.js' %}"></script>
 <style>
 table{
     margin-left:350px;
+}
+td,tr{
+    border-color: black;
 }
 button:hover{
     color:black;
@@ -33,7 +37,21 @@ button:hover{
 
         {% for data in noti_data %}
 
-            {% if data.request_receiver == email %}
+            {% if data.status == "rejected"  %}
+                  <tr style="background-color: white; color: black;">
+                  {% if data.request_receiver == email%}
+                    <td> {{data.request_sender}} </td>
+                {% else %}
+                    <td> {{data.request_receiver}} </td>
+                {% endif %}
+                    <td> {{data.requested_amount}} </td>
+                    <td> {{data.date}} </td>
+                    <td> {{data.time}} </td>
+                    <td> {{data.status}} </td>
+                    <td> N.A </td>
+                    <td> N.A </td>
+                </tr>
+            {% elif data.request_receiver == email%}
             <tr style="background-color: red; color: white;">
                 <td> {{data.request_sender}} </td>
                 <td> {{data.requested_amount}} </td>
@@ -41,7 +59,7 @@ button:hover{
                 <td> {{data.time}} </td>
                 <td> N.A </td>
                 <td> <button class="pay"> <a href="{% url 'accept' %}?id={{data.id}}"> Accept </a> </button> </td>
-                <td> <button class="request"> <a href="{% url 'reject' %}?id={{data.id}}"> Reject </a> </button> </td>
+                <td> <button class="request" onclick="alert_box({{data.id}})"> Reject </a> </button> </td>
             </tr>
             {% else %}
 
@@ -60,4 +78,5 @@ button:hover{
         {% endfor %}
     </table>
 {% endif %}
+
 {% endblock customer_content %}
