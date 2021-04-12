@@ -14,9 +14,10 @@
         <button> <a href="{% url 'home' %}">BACK</a> </button>
     {% else %}
         <h2>You are requesting from {{email}}</h2>
+        <h2>{{error_message}}</h2>
         <form action="" method="POST">
         {% csrf_token %}
-            <p>Enter amount: <input type="number" name="amount"></p>
+            <p>Enter amount: <input type="number" name="amount" required></p>
             <button type='submit'>Request</button> <br>
         </form>
     {% endif %}

@@ -17,7 +17,6 @@ def pay(request):
     except:
         return HttpResponseRedirect(reverse('login'))
 
-    data = dict(request.GET)
     if request.POST:
         data = dict(request.POST)
 
@@ -25,7 +24,7 @@ def pay(request):
         password = data['password'][0]
 
         balance = int(request.COOKIES['balance'])
-        if password == request.COOKIES['password'] and amount <= balance:
+        if password == request.COOKIES['password'] and amount <= balance and amount>0:
             response = render(request, 'pay_and_request/pay.html', {'status': 'Payment Sussccefull'})
 
             customer = Customer.objects.get(email_id=request.COOKIES['pay_id'])
@@ -55,10 +54,11 @@ def pay(request):
             return response
         else:
             return render(request, 'pay_and_request/pay.html', {
-                'error_message': 'Insufficient balance or Wrong password',
+                'error_message': 'Insufficient balance or Wrong details',
                 'email': request.COOKIES['pay_id'],
             })
     else:
+        data = dict(request.GET)
         pay_id = data['email'][0]
 
         response = render(request, 'pay_and_request/pay.html', {'email': pay_id})
@@ -73,9 +73,12 @@ def requested(request):
         return redirect('login')
 
     if request.POST:
-        amount = request.POST['amount']
-        print(amount)
-        amount = int(amount)
+        amount = int(request.POST['amount'])
+
+        if amount<=0:
+            return render(request, 'pay_and_request/request.html', {
+                'error_message': 'Amount should be greater than 0',
+            })
 
         email = request.COOKIES['email']
         reciver = request.COOKIES['reciver']

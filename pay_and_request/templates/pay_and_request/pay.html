@@ -17,8 +17,8 @@
         <h2>{{error_message}}</h2>
         <form action="" method="POST">
         {% csrf_token %}
-            <p>Enter amount: <input type="number" name="amount"></p>
-            <p>Enter your password: <input type="password" name="password"></p>
+            <p>Enter amount: <input type="number" name="amount" required></p>
+            <p>Enter your password: <input type="password" name="password" required></p>
             <button type='submit'>Pay</button> <br>
         </form>
     {% endif %}

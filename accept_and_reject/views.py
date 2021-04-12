@@ -19,7 +19,7 @@ def accept(request):
         password = request.POST['password']
         balance = int(request.COOKIES['balance'])
 
-        if password == request.COOKIES['password'] and amount <= balance:
+        if password == request.COOKIES['password'] and amount <= balance and amount>0:
 
             save_payment_detail('debited', amount, receiver.request_receiver, receiver.request_sender)
             save_payment_detail('credited', amount, receiver.request_sender, receiver.request_receiver)
@@ -38,7 +38,7 @@ def accept(request):
         else:
             response = render(request, 'accept_and_reject/accept.html', {
                 'email': receiver.request_sender,
-                'error_message': 'Insufficient balance or Wrong password'
+                'error_message': 'Insufficient balance or Wrong details'
             })
             return response
 
