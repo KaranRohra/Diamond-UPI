@@ -1,0 +1,39 @@
+{% extends 'home/nav_bar.html' %}
+{% load static %}
+{% block title %}
+<title>Profile</title>
+<link rel="stylesheet" href="{% static 'pay_and_request/style.css' %}">
+<style>
+a{
+    text-decoration:none;
+    color: blue;
+}
+h3{
+    color: white;
+}
+</style>
+{% endblock title %}
+
+{% block customer_content %}
+<div class="payment">
+    {% if status %}
+        <h3>{{status}}</h3>
+        <button> <a href="{% url 'home' %}">BACK</a> </button>
+    {% else %}
+        <h2>Your Email ID is {{email}}</h2>
+        <h3>{{error_message}}</h3>
+        <form action="" method="POST">
+        {% csrf_token %}
+            <p>Enter name: <input type="text" name="name" value="{{name}}"required></p>
+            <p>Enter new password: <input type="password" name="password" value="{{password}}"required></p>
+            <p>Enter OTP: <input type="number" name="otp" required>
+            <button> <a href="{% url 'profile' %}?otp_status=True">SendOTP</a> </button>
+            </p>
+            <button type='submit'>Save</button> 
+            <button> <a href="{% url 'home' %}">Cancel</a> </button>
+            <p>Note: OTP is only valid for 120 seconds and</p>
+            <p>Make sure you have click send otp button first before editing details</p></p>
+        </form>
+    {% endif %}
+</div>
+{% endblock customer_content %}
