@@ -1,42 +1,16 @@
-
-.searchbox {  
-float: left;  
-}  
-table{
-    text-align: center;
-    margin-left:350px;
-    margin-top:100px;
-    color: yellow;
-    /* width: 200px; */
-}
-
-table ,th, td {
-    padding: 20px;
-    border: 2px solid rgb(255, 255, 255);
-    border-collapse: collapse;
-    font-size: 20px;
-}
-input[type=text] {  
-padding: 6px;  
-margin-top: 8px; 
-margin-left: 500px; 
-font-size: 17px;  
-
-border-color: red;  
-}  
 .searchbox button {  
   
-padding: 8px;  
-margin-top: 10px;  
-margin-left: 10px;
-background: orange;  
-font-size: 20px;  
-border: none;  
-cursor: pointer;
+    padding: 8px;  
+    margin-top: 10px;  
+    margin-left: 10px;
+    background: orange;  
+    font-size: 20px;  
+    border: none;  
+    cursor: pointer;
 }  
 .searchbox button:hover {  
-background-color:rgb(0, 255, 21); 
-color: rgb(0, 0, 0);
+    background-color:rgb(0, 255, 21); 
+    color: rgb(0, 0, 0);
 }  
 .pay, .request{
     background-color:rgb(47, 255, 20);
@@ -45,6 +19,34 @@ color: rgb(0, 0, 0);
     width: 100px;
 
 }
+.head{
+    color: black;
+    background-color: white;
+    border-color: black;
+}
+input[type=text] {  
+    padding: 6px;  
+    margin-top: 8px; 
+    margin-left: 570px; 
+    font-size: 17px;  
+    border-color: red;  
+}  
+table{
+    text-align: center;
+    color: white;
+    border-color: black;
+    margin-left:auto;
+    margin-right: auto;
+    margin-top: 30px;
+
+}
+table,td,tr{
+    padding: 20px;
+    border-collapse: collapse;
+    font-size: 20px;
+    border: 2px solid rgb(0, 0, 0);
+   
+} 
 a{
     text-decoration: none;
 }
@@ -53,11 +55,7 @@ h2{
     text-align: center;
     margin-top: 100px;
 }
-.pay button:hover{
-    color: lawngreen;
-    background-color: darkblue;
-}
-.request button:hover{
-    color: lawngreen;
-    background-color: darkblue;
+button:hover{
+    color: black;
+    background-color: white;
 }

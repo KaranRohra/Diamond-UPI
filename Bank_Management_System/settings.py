@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'pay_and_request',
     'notification',
     'accept_and_reject',
+    'customer_profile',
 ]
 
 MIDDLEWARE = [

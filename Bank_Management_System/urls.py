@@ -25,4 +25,5 @@ urlpatterns = [
     path('transacion/',include('pay_and_request.urls')),
     path('notifications/',include('notification.urls')),
     path('accept_or_reject/', include('accept_and_reject.urls')),
+    path('profile', include('customer_profile.urls')),
 ]

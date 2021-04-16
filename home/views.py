@@ -10,8 +10,9 @@ def home(request):
     name = None
     balance = None
     try:
-        name = request.COOKIES['name']
-        balance = Customer.objects.get(email_id=request.COOKIES['email']).balance
+        customer = Customer.objects.get(email_id=request.COOKIES['email'])
+        balance = customer.balance
+        name = customer.name
 
     except:
         return HttpResponseRedirect(reverse('login'))

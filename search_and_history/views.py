@@ -38,9 +38,9 @@ def transaction_history(request):
 
         my_cursor = connection.cursor()
 
-        my_cursor.execute(f"SELECT * FROM COMMON_TRANSACTIONHISTORY WHERE EMAIL_ID = '{email}' ")
+        my_cursor.execute(f"SELECT * FROM COMMON_TRANSACTIONHISTORY WHERE EMAIL_ID = '{email}' ORDER BY DATE DESC, TIME DESC")
 
-        history = sort_on_date_time(list(my_cursor))
+        history = list(my_cursor)
 
         if history:
             return render(request, 'search_and_history/history.html', {'history': history})
@@ -49,24 +49,3 @@ def transaction_history(request):
     except:
         return HttpResponseRedirect(reverse('login'))
     return render(request, 'search_and_history/history.html')
-
-
-def sort_on_date_time(given: list):
-    if  len(given)==0:
-        return []
-   
-    given.sort(reverse=True,key=lambda data:data[4])
-    [print(g) for g in given]
-
-    result = []
-    start, temp = given[0][4], []
-    for i in range(len(given)):
-        if start==given[i][4]:
-            temp.append(given[i])
-        else:
-            temp.sort(key=lambda data:data[5])
-            result.extend(temp)
-            temp = [given[i]]
-            start = given[i][4]
-    result.extend(temp)
-    return result

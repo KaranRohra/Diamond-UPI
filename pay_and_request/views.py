@@ -12,9 +12,7 @@ import datetime
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def pay(request):
-    try:
-        request.COOKIES['email']
-    except:
+    if 'email' not in request.COOKIES:
         return HttpResponseRedirect(reverse('login'))
 
     if request.POST:
@@ -44,8 +42,8 @@ def pay(request):
             )
             customer.save()
 
-            save_payment_detail(request, 'debited', amount, request.COOKIES['email'], request.COOKIES['pay_id'])
-            save_payment_detail(request, 'credited', amount, request.COOKIES['pay_id'], request.COOKIES['email'])
+            save_payment_detail('debited', amount, request.COOKIES['email'], request.COOKIES['pay_id'])
+            save_payment_detail('credited', amount, request.COOKIES['pay_id'], request.COOKIES['email'])
 
             response.set_cookie('balance', balance - amount)
 
@@ -104,7 +102,7 @@ def requested(request):
         return response
 
 
-def save_request(reciver, sender, amount):
+def save_request(receiver, sender, amount):
     curr_time_date = str(dt.now(pytz.timezone('Asia/Kolkata'))).split()
 
     date = curr_time_date[0]
@@ -114,7 +112,7 @@ def save_request(reciver, sender, amount):
     hours, minutes, seconds = [int(t) for t in time.split(":")]
 
     Requests(
-        request_receiver=reciver,
+        request_receiver=receiver,
         request_sender=sender,
         requested_amount=amount,
         date=datetime.date(year, month, day),
@@ -123,7 +121,7 @@ def save_request(reciver, sender, amount):
     ).save()
 
 
-def save_payment_detail(request, option, amount, email, pay_id):
+def save_payment_detail(option, amount, email, pay_id):
     curr_time_date = str(dt.now(pytz.timezone('Asia/Kolkata'))).split()
 
     date = curr_time_date[0]
