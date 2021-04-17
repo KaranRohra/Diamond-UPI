@@ -51,7 +51,6 @@ def transaction_history(request):
     if 'op' not in request.GET:
         response.set_cookie('count', '[0,0,0,0,0,0]')
     else:
-        print(count)
         response.set_cookie('count', str(count))
 
     return response
