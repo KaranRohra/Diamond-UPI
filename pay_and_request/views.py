@@ -23,7 +23,7 @@ def pay(request):
 
         balance = int(request.COOKIES['balance'])
         if password == request.COOKIES['password'] and amount <= balance and amount>0:
-            response = render(request, 'pay_and_request/pay.html', {'status': 'Payment Sussccefull'})
+            response = render(request, 'pay_and_request/pay.html', {'status': 'Payment Successful'})
 
             customer = Customer.objects.get(email_id=request.COOKIES['pay_id'])
             customer = Customer(
@@ -73,31 +73,31 @@ def requested(request):
     if request.POST:
         amount = int(request.POST['amount'])
 
-        if amount<=0:
+        if amount <= 0:
             return render(request, 'pay_and_request/request.html', {
                 'error_message': 'Amount should be greater than 0',
             })
 
         email = request.COOKIES['email']
-        reciver = request.COOKIES['reciver']
+        receiver = request.COOKIES['receiver']
 
-        save_request(reciver, email, amount)
+        save_request(receiver, email, amount)
 
         response = render(request, 'pay_and_request/request.html', {
             'status': 'Requested Successfully',
         })
 
-        response.delete_cookie('reciver')
+        response.delete_cookie('receiver')
 
         return response
     else:
-        reciver = request.GET['email']
+        receiver = request.GET['email']
 
         response = render(request, 'pay_and_request/request.html', {
-            'email': reciver,
+            'email': receiver,
         })
 
-        response.set_cookie('reciver', reciver)
+        response.set_cookie('receiver', receiver)
 
         return response
 

@@ -17,6 +17,7 @@
     padding: 8px; 
     font-size: 18px;  
     width: 100px;
+    color: black;
 
 }
 .head{
@@ -44,13 +45,18 @@ table,td,tr{
     padding: 20px;
     border-collapse: collapse;
     font-size: 20px;
-    border: 2px solid rgb(0, 0, 0);
+    border: 2px solid black;
    
 } 
 a{
     text-decoration: none;
+    color: white;
 }
-h2{
+a:hover{
+ text-decoration: underline;
+ color: black;
+}
+h2, h1{
     color: white;
     text-align: center;
     margin-top: 100px;

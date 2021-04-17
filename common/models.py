@@ -35,7 +35,3 @@ class Requests(models.Model):
 				('pending','pending'),
 			)
 		)
-
-	def __str__(self):
-		return f'[request:{self.request_receiver}, sender:{self.request_sender}, amount:{self.requested_amount}, date:{self.date}, time:{self.time}]'
-	

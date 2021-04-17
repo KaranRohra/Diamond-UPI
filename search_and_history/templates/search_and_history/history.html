@@ -17,15 +17,15 @@ table,tr,td{
 <h1> {{status}} </h1>
 {% else %}
     <table>
-        <head>
+        <thead>
             <tr>
-                <td>Transaction with</td>
-                <td>Status</td>
-                <td>Amount</td>
-                <td>Date</td>
-                <td>Time</td>
+                <td> <a href="{% url 'history' %}?op=1"> Transaction with </a> </td>
+                <td> <a href="{% url 'history' %}?op=2"> Status </a> </td>
+                <td> <a href="{% url 'history' %}?op=3"> Amount </a> </td>
+                <td> <a href="{% url 'history' %}?op=4"> Date </a> </td>
+                <td> <a href="{% url 'history' %}?op=5"> Time </a> </td>
             </tr>
-        </head>
+        </thead>
 
         {% for transaction in history %}
 

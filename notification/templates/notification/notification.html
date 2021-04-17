@@ -17,6 +17,12 @@ button:hover{
     color:black;
     background-color:white;
 }
+a{
+    color: black;
+}
+a:hover{
+text-decoration: none;
+}
 </style>
 {% endblock title %}
 
@@ -60,7 +66,7 @@ button:hover{
                 <td> {{data.time}} </td>
                 <td> N.A </td>
                 <td> <button class="pay"> <a href="{% url 'accept' %}?id={{data.id}}"> Accept </a> </button> </td>
-                <td> <button class="request" onclick="alert_box({{data.id}})"> Reject </a> </button> </td>
+                <td> <button class="request" onclick="alert_box({{data.id}})"> Reject  </button> </td>
             </tr>
             {% else %}
 
