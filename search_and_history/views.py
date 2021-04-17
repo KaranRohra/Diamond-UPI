@@ -48,9 +48,10 @@ def transaction_history(request):
     else:
         response = render(request, 'search_and_history/history.html', {'status': 'No History Available'})
 
-    if 'op' not in request.GET or count is None or count not in range(0, 6):
+    if 'op' not in request.GET:
         response.set_cookie('count', '[0,0,0,0,0,0]')
     else:
+        print(count)
         response.set_cookie('count', str(count))
 
     return response
@@ -60,7 +61,7 @@ def sort_on_option(request, email, op=0):
     my_cursor = connection.cursor()
 
     count = None
-    print(request.COOKIES)
+
     if op != 0:
         count = [int(c) for c in str(request.COOKIES['count'])[1:-1].split(",")]
 
@@ -79,5 +80,7 @@ def sort_on_option(request, email, op=0):
         my_cursor.execute(query.format(email, f'DATE {"ASC" if count[4] else "DESC"}, TIME {"DESC" if count[5] else "ASC"}'))
 
     if op != 0:
+        print(0 if count[op] else 1)
         count[op] = 0 if count[op] else 1
+        print(count[op])
     return list(my_cursor), count
