@@ -1,22 +1,20 @@
-from django.shortcuts import render
-from django.http import HttpResponseRedirect
-from django.urls import reverse
+from django.shortcuts import render, redirect
 from common.models import Customer
 from django.views.decorators.cache import cache_control
 
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def home(request):
-    name = None
-    balance = None
-    try:
-        customer = Customer.objects.get(email_id=request.COOKIES['email'])
-        balance = customer.balance
-        name = customer.name
+    if 'email' not in request.COOKIES:
+        return redirect('login')
 
-    except:
-        return HttpResponseRedirect(reverse('login'))
-    return render(request, 'home/home.html',{
-        'name':name,
-        'balance':balance,
-        })
+    customer = Customer.objects.get(email_id=request.COOKIES['email'])
+    balance = customer.balance
+    name = customer.name
+    last_login = customer.last_login
+
+    return render(request, 'home/home.html', {
+        'name': name,
+        'balance': balance,
+        'last_login': last_login,
+    })

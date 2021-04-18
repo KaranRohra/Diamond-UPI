@@ -33,13 +33,13 @@ def show_profile(request):
             is_otp_send = send_mail(email, otp)
 
             response = HttpResponseRedirect(reverse('profile'))
-            response.set_cookie("error_message", "OTP Send Successfully" if is_otp_send else "Failed while Sending OTP")
+            response.set_cookie("error_message", "OTP Send Successfully" if is_otp_send else "Failed while Sending OTP", max_age=120)
             if is_otp_send:
                 response.set_cookie('otp', otp, max_age=120)
             return response
         else:
             response = HttpResponseRedirect(reverse('profile'))
-            response.set_cookie("error_message", "OTP Already Send Successfully")
+            response.set_cookie("error_message", "OTP Already Send Successfully", max_age=120)
             return response
 
     response = render(request, 'profile/profile.html', customer_curr_data)

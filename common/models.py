@@ -1,37 +1,40 @@
+import datetime
+
 from django.db import models
+from django.utils.timezone import now
 
 
 class Customer(models.Model):
-	email_id = models.EmailField(max_length=50, primary_key=True)
-	password = models.CharField(max_length=50)
-	name = models.CharField(max_length=50)
-	balance = models.IntegerField(default=0)
+    email_id = models.EmailField(max_length=50, primary_key=True)
+    password = models.CharField(max_length=50)
+    name = models.CharField(max_length=50)
+    balance = models.IntegerField(default=0)
+    last_login = models.DateTimeField(blank=True, default=now)
+    curr_login = models.DateTimeField(blank=True, default=now)
 
 
 class TransactionHistory(models.Model):
-	email_id = models.EmailField(max_length=50)
-	transaction_with = models.EmailField(max_length=50, default=None)
-	amount = models.IntegerField()
-	status = models.CharField(max_length=50, default=None,
-		choices=(
-				('credited','credited'),
-				('debited','debited'),
-			)
-		)
-	date = models.DateField(auto_now=False, auto_now_add=False, default=None)
-	time = models.TimeField(auto_now=False, auto_now_add=False, default=None)
+    email_id = models.EmailField(max_length=50)
+    transaction_with = models.EmailField(max_length=50, default=None)
+    amount = models.IntegerField()
+    status = models.CharField(max_length=50, default=None,
+                              choices=(
+                                  ('credited', 'credited'),
+                                  ('debited', 'debited'),
+                              ))
+    date = models.DateField(auto_now=False, auto_now_add=False, default=None)
+    time = models.TimeField(auto_now=False, auto_now_add=False, default=None)
 
 
 class Requests(models.Model):
-	request_receiver = models.EmailField(max_length=50)
-	request_sender = models.EmailField(max_length=50)
-	requested_amount = models.IntegerField()
-	date = models.DateField(auto_now=False, auto_now_add=False, default=None)
-	time = models.TimeField(auto_now=False, auto_now_add=False, default=None)
-	status = models.CharField(max_length=50, default=None,
-		choices=(
-				('accepted','accepted'),
-				('rejected','rejected'),
-				('pending','pending'),
-			)
-		)
+    request_receiver = models.EmailField(max_length=50)
+    request_sender = models.EmailField(max_length=50)
+    requested_amount = models.IntegerField()
+    date = models.DateField(auto_now=False, auto_now_add=False, default=None)
+    time = models.TimeField(auto_now=False, auto_now_add=False, default=None)
+    status = models.CharField(max_length=50, default=None,
+                              choices=(
+                                  ('accepted', 'accepted'),
+                                  ('rejected', 'rejected'),
+                                  ('pending', 'pending'),
+                              ))

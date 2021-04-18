@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect
 from django.db import connection
 from django.urls import reverse
 from django.views.decorators.cache import cache_control
@@ -34,7 +34,7 @@ def search(request):
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def transaction_history(request):
     if 'email' not in request.COOKIES:
-        HttpResponseRedirect(reverse('login'))
+        return HttpResponseRedirect(reverse('login'))
 
     email = request.COOKIES['email']
 
@@ -49,9 +49,9 @@ def transaction_history(request):
         response = render(request, 'search_and_history/history.html', {'status': 'No History Available'})
 
     if 'op' not in request.GET:
-        response.set_cookie('count', '[0,0,0,0,0,0]')
+        response.set_cookie('count', '[0,0,0,0,0,0]', max_age=1800)
     else:
-        response.set_cookie('count', str(count))
+        response.set_cookie('count', str(count), max_age=1800)
 
     return response
 

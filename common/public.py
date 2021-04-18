@@ -6,13 +6,13 @@ from email.message import EmailMessage
 def send_mail(reciever_email, otp):
     msg = EmailMessage()
     msg.set_content(f"""
-    Diamon UPI
+    Diamond UPI
     OTP: {otp}
     Don't Share with anyone
     We Don't call you and ask for OTP, Password and any other details
     """)
 
-    msg['Subject'] = 'Diamon UPI OTP'
+    msg['Subject'] = 'Diamond UPI OTP'
     msg['From'] = 'krohra138@gmail.com'
     msg['To'] = reciever_email
 

@@ -5,7 +5,7 @@
 <title>Home</title>
 
 <style>
- h1, h2{
+ h1, h2, h3{
      color: white;
      text-align: center;
  }
@@ -15,4 +15,5 @@
 {% block customer_content %}
 <h1>Welcome {{name}}</h1>
 <h2>Your Bank Balance: {{balance}} RS</h2>
+<h3>You have last login at {{last_login}}</h3>
 {% endblock customer_content %}

@@ -1,6 +1,4 @@
 from datetime import datetime as dt
-import datetime
-
 import pytz
 from django.shortcuts import render, redirect
 from django.views.decorators.cache import cache_control
@@ -19,7 +17,7 @@ def accept(request):
         password = request.POST['password']
         balance = int(request.COOKIES['balance'])
 
-        if password == request.COOKIES['password'] and amount <= balance and amount>0:
+        if password == request.COOKIES['password'] and balance >= amount > 0:
 
             save_payment_detail('debited', amount, receiver.request_receiver, receiver.request_sender)
             save_payment_detail('credited', amount, receiver.request_sender, receiver.request_receiver)
@@ -32,7 +30,7 @@ def accept(request):
                 'status': 'Payment Successfully Completed',
             })
 
-            response.set_cookie('balance', balance - amount)
+            response.set_cookie('balance', balance - amount, max_age=1800)
             response.delete_cookie('id')
             return response
         else:
@@ -46,7 +44,7 @@ def accept(request):
         receiver = Requests.objects.get(id=request.GET['id'])
         response = render(request, 'accept_and_reject/accept.html', {'email': receiver.request_sender})
 
-        response.set_cookie('id', request.GET['id'])
+        response.set_cookie('id', request.GET['id'], max_age=1800)
         return response
 
 

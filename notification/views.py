@@ -1,7 +1,5 @@
 from django.shortcuts import render, redirect
-from django.urls import reverse
 from django.views.decorators.cache import cache_control
-
 from common.models import Requests
 
 
@@ -9,29 +7,27 @@ from common.models import Requests
 def notification(request):
     if 'email' not in request.COOKIES:
         return redirect('login')
-    
 
-    email=request.COOKIES['email']
+    email = request.COOKIES['email']
 
-    recived_request = list(Requests.objects.filter(request_receiver=email))
-    sended_request = list(Requests.objects.filter(request_sender=email))
+    received_request = list(Requests.objects.filter(request_receiver=email))
+    sender_request = list(Requests.objects.filter(request_sender=email))
 
+    sorted_data = sorted_on_date_time(received_request + sender_request)
 
-    sorted_data = sorted_on_date_time(recived_request+sended_request)
-   
     if sorted_data:
-        return render(request, 'notification/notification.html',{
-            'noti_data':sorted_data,
-            'email':email,
+        return render(request, 'notification/notification.html', {
+            'noti_data': sorted_data,
+            'email': email,
         })
     else:
-        return render(request, 'notification/notification.html',{
-            'status':'No Notification Available',
+        return render(request, 'notification/notification.html', {
+            'status': 'No Notification Available',
         })
 
 
 def sorted_on_date_time(given: list):
-    if len(given)==0:
+    if len(given) == 0:
         return []
     given.sort(key=lambda ele: ele.date, reverse=True)
 
@@ -43,8 +39,8 @@ def sorted_on_date_time(given: list):
         if start_date == given[i].date:
             temp.append(given[i])
         else:
-            result.extend(sorted(temp,key = lambda ele: ele.time, reverse=True))
+            result.extend(sorted(temp, key=lambda ele: ele.time, reverse=True))
             temp = [given[i]]
             start_date = given[i].date
-    result.extend(sorted(temp,key = lambda ele: ele.time, reverse=True))
+    result.extend(sorted(temp, key=lambda ele: ele.time, reverse=True))
     return result

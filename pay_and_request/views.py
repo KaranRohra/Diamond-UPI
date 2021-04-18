@@ -45,7 +45,7 @@ def pay(request):
             save_payment_detail('debited', amount, request.COOKIES['email'], request.COOKIES['pay_id'])
             save_payment_detail('credited', amount, request.COOKIES['pay_id'], request.COOKIES['email'])
 
-            response.set_cookie('balance', balance - amount)
+            response.set_cookie('balance', balance - amount, max_age=1800)
 
             response.delete_cookie('pay_id')
 
@@ -60,7 +60,7 @@ def pay(request):
         pay_id = data['email'][0]
 
         response = render(request, 'pay_and_request/pay.html', {'email': pay_id})
-        response.set_cookie('pay_id', pay_id)
+        response.set_cookie('pay_id', pay_id, max_age=1800)
 
         return response
 
@@ -97,7 +97,7 @@ def requested(request):
             'email': receiver,
         })
 
-        response.set_cookie('receiver', receiver)
+        response.set_cookie('receiver', receiver, max_age=1800)
 
         return response
 
